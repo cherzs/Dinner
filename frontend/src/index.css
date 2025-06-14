@@ -328,6 +328,64 @@ code {
   }
 }
 
+@media (max-width: 480px) {
+  .container {
+    padding: 0 8px;
+  }
+  .navbar-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .hero h1 {
+    font-size: 24px;
+  }
+  .hero p {
+    font-size: 14px;
+  }
+  .auth-card {
+    padding: 16px;
+    max-width: 100%;
+  }
+  .profile-header {
+    padding: 32px 0;
+  }
+  .profile-content {
+    padding: 20px 0;
+  }
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .event-card-header, .event-card-body {
+    padding: 12px;
+  }
+  .card {
+    padding: 12px;
+  }
+  /* Tambahan untuk tabel dan form agar tidak overflow */
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .btn, .btn-primary, .btn-secondary {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}
+
 /* Loading and Error States */
 .loading {
   text-align: center;
@@ -357,4 +415,78 @@ code {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Tablet (portrait & landscape) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 16px;
+  }
+  .navbar-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  .hero h1 {
+    font-size: 32px;
+  }
+  .hero p {
+    font-size: 16px;
+  }
+  .auth-card {
+    padding: 24px;
+    max-width: 100%;
+  }
+  .profile-header {
+    padding: 40px 0;
+  }
+  .profile-content {
+    padding: 24px 0;
+  }
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .event-card-header, .event-card-body {
+    padding: 16px;
+  }
+  .card {
+    padding: 16px;
+  }
+}
+
+/* Laptop/Desktop (default styles, but add a breakpoint for large screens) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 40px;
+  }
+  .hero h1 {
+    font-size: 56px;
+  }
+  .hero p {
+    font-size: 24px;
+  }
+}
+
+/* TV/Monitor Besar */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1800px;
+    padding: 0 80px;
+  }
+  .hero h1 {
+    font-size: 72px;
+  }
+  .hero p {
+    font-size: 32px;
+  }
+  .card, .auth-card, .event-card-header, .event-card-body {
+    font-size: 22px;
+  }
 } 

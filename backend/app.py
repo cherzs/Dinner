@@ -14,10 +14,10 @@ load_dotenv()
 app = Flask(__name__)
 
 # Configuration
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'social-connect-super-secret-key-production-2024')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://postgres:vkxvzDMEPEnWxxnVHdvyrcfPIvUJGiAt@turntable.proxy.rlwy.net:32110/railway')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'jwt-social-connect-secret-key-production-2024')
+app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)
 
 # File upload configuration

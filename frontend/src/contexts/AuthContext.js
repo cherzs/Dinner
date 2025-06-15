@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Set axios baseURL dari environment variable
+// Set axios baseURL from environment variable
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || '';
+// Enable credentials for session cookies
+axios.defaults.withCredentials = true;
 
 const AuthContext = createContext();
 
@@ -13,53 +15,30 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [token, setToken] = useState(localStorage.getItem('token'));
   const [isUserFromCache, setIsUserFromCache] = useState(false);
 
-  // Configure axios to include token in requests
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    } else {
-      delete axios.defaults.headers.common['Authorization'];
-    }
-  }, [token]);
-
-  // Load user profile on mount if token exists
+  // Load user profile on mount
   useEffect(() => {
     const loadUser = async () => {
-      if (token) {
-        try {
-          const response = await axios.get('/api/profile');
-          setCurrentUser(response.data.user);
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-          setIsUserFromCache(false);
-        } catch (error) {
-          console.error('Failed to load user:', error);
-          // Fallback: ambil user dari localStorage jika ada
-          const cachedUser = localStorage.getItem('user');
-          if (cachedUser) {
-            setCurrentUser(JSON.parse(cachedUser));
-            setIsUserFromCache(true);
-          } else {
-            setCurrentUser(null);
-            setIsUserFromCache(false);
-          }
-        }
+      try {
+        const response = await axios.get('/api/profile');
+        setCurrentUser(response.data.user);
+        setIsUserFromCache(false);
+      } catch (error) {
+        console.error('Failed to load user:', error);
+        setCurrentUser(null);
+        setIsUserFromCache(false);
       }
       setLoading(false);
     };
 
     loadUser();
-  }, [token]);
+  }, []);
 
-  const login = async (email, password) => {
+  const login = async (username, password) => {
     try {
-      const response = await axios.post('/api/login', { email, password });
-      const { access_token, user } = response.data;
-      localStorage.setItem('token', access_token);
-      localStorage.setItem('user', JSON.stringify(user));
-      setToken(access_token);
+      const response = await axios.post('/api/login', { username, password });
+      const { user } = response.data;
       setCurrentUser(user);
       setIsUserFromCache(false);
       return { success: true };
@@ -74,10 +53,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       const response = await axios.post('/api/register', userData);
-      const { access_token, user } = response.data;
-      localStorage.setItem('token', access_token);
-      localStorage.setItem('user', JSON.stringify(user));
-      setToken(access_token);
+      const { user } = response.data;
       setCurrentUser(user);
       setIsUserFromCache(false);
       return { success: true };
@@ -89,13 +65,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setToken(null);
-    setCurrentUser(null);
-    setIsUserFromCache(false);
-    delete axios.defaults.headers.common['Authorization'];
+  const logout = async () => {
+    try {
+      await axios.post('/api/logout');
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      setCurrentUser(null);
+      setIsUserFromCache(false);
+    }
   };
 
   const value = {

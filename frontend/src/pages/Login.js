@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ const Login = () => {
     setLoading(true);
     setError('');
 
-    const result = await login(email, password);
+    const result = await login(username, password);
 
     setLoading(false);
 
@@ -146,14 +146,14 @@ const Login = () => {
               color: '#374151',
               marginBottom: '8px'
             }}>
-              Email
+              Username
             </label>
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
-              autoComplete="email"
+              autoComplete="username"
               style={{
                 width: '100%',
                 padding: '16px 20px',
@@ -214,60 +214,42 @@ const Login = () => {
             />
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={loading}
             style={{
               width: '100%',
-              background: loading ? '#9CA3AF' : 'linear-gradient(45deg, #667eea, #764ba2)',
+              padding: '16px',
+              background: 'linear-gradient(45deg, #667eea, #764ba2)',
               color: 'white',
               border: 'none',
-              padding: '16px 24px',
               borderRadius: '12px',
               fontSize: '16px',
               fontWeight: '600',
               cursor: loading ? 'not-allowed' : 'pointer',
-              transition: 'all 0.3s ease',
-              boxShadow: loading ? 'none' : '0 8px 32px rgba(102, 126, 234, 0.3)',
-              marginBottom: '24px'
-            }}
-            onMouseOver={(e) => {
-              if (!loading) {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 12px 40px rgba(102, 126, 234, 0.4)';
-              }
-            }}
-            onMouseOut={(e) => {
-              if (!loading) {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 8px 32px rgba(102, 126, 234, 0.3)';
-              }
+              opacity: loading ? 0.7 : 1,
+              transition: 'all 0.2s ease'
             }}
           >
-            {loading ? 'Masuk...' : 'Masuk'}
+            {loading ? 'Loading...' : 'Masuk'}
           </button>
-        </form>
 
-        <div style={{
-          textAlign: 'center',
-          fontSize: '14px',
-          color: '#6B7280'
-        }}>
-          Belum punya akun?{' '}
-          <Link 
-            to="/register"
-            style={{
+          <div style={{
+            textAlign: 'center',
+            marginTop: '24px',
+            fontSize: '14px',
+            color: '#6B7280'
+          }}>
+            Belum punya akun?{' '}
+            <Link to="/register" style={{
               color: '#667eea',
               textDecoration: 'none',
-              fontWeight: '600',
-              transition: 'color 0.2s ease'
-            }}
-            onMouseOver={(e) => e.target.style.color = '#764ba2'}
-            onMouseOut={(e) => e.target.style.color = '#667eea'}
-          >
-            Daftar di sini
-          </Link>
-        </div>
+              fontWeight: '600'
+            }}>
+              Daftar di sini
+            </Link>
+          </div>
+        </form>
       </div>
 
       {/* CSS Animations */}

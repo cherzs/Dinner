@@ -14,6 +14,8 @@ const Profile = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [editGender, setEditGender] = useState('');
+  const [editAge, setEditAge] = useState('');
 
   useEffect(() => {
     if (!currentUser) {
@@ -32,6 +34,13 @@ const Profile = () => {
     
     fetchUserRegistrations();
   }, [currentUser, navigate]);
+
+  useEffect(() => {
+    if (currentUser) {
+      setEditGender(currentUser.gender || '');
+      setEditAge(currentUser.age || '');
+    }
+  }, [currentUser]);
 
   const fetchUserRegistrations = async () => {
     try {
@@ -74,7 +83,12 @@ const Profile = () => {
   const handleSaveProfile = async () => {
     try {
       setUpdateLoading(true);
-      const response = await axios.put('/api/profile', editData);
+      const data = {
+        ...editData,
+        gender: editGender,
+        age: editAge
+      };
+      const response = await axios.put('/api/profile', data);
       
       if (response.data.success) {
         setIsEditing(false);
@@ -116,12 +130,13 @@ const Profile = () => {
     try {
       setUploadingImage(true);
       const formData = new FormData();
-      formData.append('profile_image', profileImage);
+      formData.append('image', profileImage);
 
       const response = await axios.post('/api/profile/upload-image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        withCredentials: true
       });
 
       if (response.data.success) {
@@ -217,7 +232,7 @@ const Profile = () => {
               overflow: 'hidden'
             }}>
               {!imagePreview && !currentUser.has_profile_image && (
-                <span>{currentUser.first_name.charAt(0)}{currentUser.last_name.charAt(0)}</span>
+                <span>{currentUser.full_name ? currentUser.full_name.charAt(0) : ''}{currentUser.full_name && currentUser.full_name.split(' ')[1] ? currentUser.full_name.split(' ')[1].charAt(0) : ''}</span>
               )}
             </div>
             
@@ -315,7 +330,7 @@ const Profile = () => {
             margin: '0 0 12px 0',
             textShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }}>
-            {currentUser.first_name} {currentUser.last_name}
+            {currentUser.full_name}
           </h1>
           
           <p style={{
@@ -517,9 +532,8 @@ const Profile = () => {
                       Jenis Kelamin
                     </label>
                     <select
-                      name="gender"
-                      value={editData.gender || ''}
-                      onChange={handleEditChange}
+                      value={editGender}
+                      onChange={e => setEditGender(e.target.value)}
                       style={{
                         width: '100%',
                         padding: '12px 16px',
@@ -529,10 +543,38 @@ const Profile = () => {
                         outline: 'none'
                       }}
                     >
-                      <option value="">Pilih Jenis Kelamin</option>
-                      <option value="Laki-laki">Laki-laki</option>
-                      <option value="Perempuan">Perempuan</option>
+                      <option value="">Pilih Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
                     </select>
+                  </div>
+
+                  <div style={{ marginBottom: '24px' }}>
+                    <label style={{
+                      display: 'block',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      color: '#374151',
+                      marginBottom: '8px'
+                    }}>
+                      Umur
+                    </label>
+                    <input
+                      type="number"
+                      value={editAge}
+                      onChange={e => setEditAge(e.target.value)}
+                      min={1}
+                      max={120}
+                      style={{
+                        width: '100%',
+                        padding: '12px 16px',
+                        border: '1px solid #D1D5DB',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        outline: 'none'
+                      }}
+                    />
                   </div>
 
                   <div style={{ display: 'flex', gap: '12px' }}>
@@ -664,7 +706,7 @@ const Profile = () => {
                         color: '#111827',
                         fontWeight: '600'
                       }}>
-                        {currentUser.gender || 'Belum diisi'}
+                        {currentUser.gender ? currentUser.gender : 'Belum diisi'}
                       </div>
                     </div>
                     
@@ -906,7 +948,7 @@ const Profile = () => {
                                   backgroundPosition: 'center'
                                 }}>
                                   {!member.has_profile_image && (
-                                    <span>{member.first_name.charAt(0)}{member.last_name.charAt(0)}</span>
+                                    <span>{member.full_name ? member.full_name.charAt(0) : ''}{member.full_name && member.full_name.split(' ')[1] ? member.full_name.split(' ')[1].charAt(0) : ''}</span>
                                   )}
                                 </div>
                                 
@@ -918,7 +960,7 @@ const Profile = () => {
                                     color: '#111827',
                                     marginBottom: '2px'
                                   }}>
-                                    {member.first_name} {member.last_name}
+                                    {member.full_name}
                                   </div>
                                   <div style={{
                                     fontSize: '12px',

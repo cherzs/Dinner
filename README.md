@@ -46,7 +46,6 @@ DATABASE_URL=postgresql://username:password@host:port/database_name
 
 # Flask Configuration
 SECRET_KEY=your-super-secret-key-here
-JWT_SECRET_KEY=your-jwt-secret-key-here
 
 # Optional: Email Configuration
 MAIL_USERNAME=your-email@gmail.com

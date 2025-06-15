@@ -180,7 +180,7 @@ const Events = () => {
             </div>
           )}
 
-          {!loading && events.length === 0 && (
+          {!loading && (events || []).length === 0 && (
             <div style={{
               background: 'rgba(255,255,255,0.95)',
               borderRadius: '24px',
@@ -234,14 +234,14 @@ const Events = () => {
             </div>
           )}
 
-          {!loading && events.length > 0 && (
+          {!loading && (events || []).length > 0 && (
             <div style={{
               display: 'grid',
               gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
               gap: '32px',
               marginBottom: '60px'
             }}>
-              {events.map(event => (
+              {(events || []).map(event => (
                 <div key={event.id} style={{
                   background: 'white',
                   borderRadius: '12px',

@@ -280,7 +280,7 @@ const Admin = () => {
               fontWeight: '600',
               marginRight: '12px'
             }}>
-              {currentUser.first_name.charAt(0)}
+              {currentUser.full_name ? currentUser.full_name.charAt(0) : ''}
             </div>
             <div>
               <div style={{ fontSize: '14px', fontWeight: '600', color: '#111827' }}>

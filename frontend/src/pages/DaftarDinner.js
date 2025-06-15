@@ -197,13 +197,14 @@ const DaftarDinner = () => {
 
   return (
     <div style={{ 
-      marginTop: '80px', 
+      marginTop: '80px',
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       minHeight: 'calc(100vh - 80px)',
       padding: '40px 20px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      paddingTop: 50
     }}>
       {/* Background Pattern */}
       <div style={{
@@ -318,7 +319,7 @@ const DaftarDinner = () => {
                   </h3>
                 </div>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth < 600 ? '1fr' : '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                   <div className="form-group">
                     <label style={{ 
                       display: 'block', 
@@ -615,7 +616,7 @@ const DaftarDinner = () => {
                   </h3>
                 </div>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: window.innerWidth < 600 ? '1fr' : '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                   <div className="form-group">
                     <label style={{ 
                       display: 'block', 

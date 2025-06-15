@@ -160,7 +160,7 @@ const AdminGroups = () => {
         {/* Stats Cards */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
           gap: '20px',
           marginBottom: '40px'
         }}>
@@ -273,7 +273,7 @@ const AdminGroups = () => {
           ) : (
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+              gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(400px, 1fr))',
               gap: '20px'
             }}>
               {groups.map((group) => (
@@ -465,7 +465,7 @@ const AdminGroups = () => {
             }}>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(150px, 1fr))',
                 gap: '12px'
               }}>
                 <div>

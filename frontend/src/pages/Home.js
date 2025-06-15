@@ -8,7 +8,8 @@ const Home = () => {
   return (
     <div style={{ 
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      paddingTop: 50
     }}>
       {/* Hero Section */}
       <section style={{
@@ -206,7 +207,7 @@ const Home = () => {
           {/* Stats */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(150px, 1fr))',
             gap: '32px',
             maxWidth: '600px',
             margin: '0 auto'
@@ -293,7 +294,7 @@ const Home = () => {
 
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+            gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))', 
             gap: '40px' 
           }}>
             <div style={{

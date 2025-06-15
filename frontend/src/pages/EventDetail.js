@@ -251,7 +251,7 @@ const EventDetail = () => {
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+              gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(150px, 1fr))',
               gap: '16px',
               marginTop: '20px'
             }}>
@@ -314,7 +314,7 @@ const EventDetail = () => {
             }}>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
                 gap: '16px'
               }}>
                 <div>

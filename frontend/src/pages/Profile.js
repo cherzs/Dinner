@@ -149,7 +149,8 @@ const Profile = () => {
       minHeight: 'calc(100vh - 80px)',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      paddingTop: 50
     }}>
       
       {/* Background Pattern */}
@@ -334,9 +335,9 @@ const Profile = () => {
         maxWidth: '1200px',
         margin: '0 auto'
       }}>
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: '2fr 1fr', 
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: window.innerWidth < 900 ? '1fr' : '2fr 1fr',
           gap: '32px',
           alignItems: 'start'
         }}>
@@ -573,7 +574,7 @@ const Profile = () => {
                 <div>
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
+                    gridTemplateColumns: window.innerWidth < 600 ? '1fr' : '1fr 1fr',
                     gap: '24px',
                     marginBottom: '24px'
                   }}>
@@ -875,7 +876,7 @@ const Profile = () => {
                           
                           <div style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                            gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
                             gap: '12px'
                           }}>
                             {registration.group_members.map((member, memberIndex) => (

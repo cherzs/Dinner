@@ -195,10 +195,11 @@ const Admin = () => {
     <div style={{ 
       display: 'flex',
       height: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: '#fff',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      paddingTop: 50,
     }}>
       
       {/* Background Pattern */}
@@ -227,11 +228,9 @@ const Admin = () => {
         {/* Header */}
         <div style={{
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '32px',
-          paddingBottom: '16px',
-          borderBottom: '1px solid #E5E7EB'
+          alignItems: 'flex-start',
+          marginBottom: 32,
+          paddingBottom: 16
         }}>
           {!sidebarCollapsed && (
             <h1 style={{
@@ -372,7 +371,6 @@ const Admin = () => {
           background: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(20px)',
           border: '1px solid rgba(255, 255, 255, 0.2)',
-          borderBottom: '1px solid #E5E7EB',
           padding: '16px 32px',
           display: 'flex',
           alignItems: 'center',

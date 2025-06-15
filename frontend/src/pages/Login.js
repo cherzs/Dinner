@@ -38,7 +38,8 @@ const Login = () => {
       padding: '20px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      paddingTop: 50
     }}>
       {/* Background Pattern */}
       <div style={{

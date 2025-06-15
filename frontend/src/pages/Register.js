@@ -96,12 +96,13 @@ const Register = () => {
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'center',
       padding: '40px 20px',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      paddingTop: 50
     }}>
       {/* Background Pattern */}
       <div style={{
@@ -146,7 +147,8 @@ const Register = () => {
         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
         border: '1px solid rgba(255, 255, 255, 0.2)',
         position: 'relative',
-        zIndex: 2
+        zIndex: 2,
+        marginTop: 48
       }}>
         {/* Premium Badge */}
         <div style={{

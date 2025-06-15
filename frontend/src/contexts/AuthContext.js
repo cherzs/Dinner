@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [isUserFromCache, setIsUserFromCache] = useState(false);
 
   // Configure axios to include token in requests
   useEffect(() => {
@@ -31,10 +32,19 @@ export const AuthProvider = ({ children }) => {
         try {
           const response = await axios.get('/api/profile');
           setCurrentUser(response.data.user);
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          setIsUserFromCache(false);
         } catch (error) {
           console.error('Failed to load user:', error);
-          localStorage.removeItem('token');
-          setToken(null);
+          // Fallback: ambil user dari localStorage jika ada
+          const cachedUser = localStorage.getItem('user');
+          if (cachedUser) {
+            setCurrentUser(JSON.parse(cachedUser));
+            setIsUserFromCache(true);
+          } else {
+            setCurrentUser(null);
+            setIsUserFromCache(false);
+          }
         }
       }
       setLoading(false);
@@ -47,11 +57,11 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post('/api/login', { email, password });
       const { access_token, user } = response.data;
-      
       localStorage.setItem('token', access_token);
+      localStorage.setItem('user', JSON.stringify(user));
       setToken(access_token);
       setCurrentUser(user);
-      
+      setIsUserFromCache(false);
       return { success: true };
     } catch (error) {
       return { 
@@ -65,11 +75,11 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post('/api/register', userData);
       const { access_token, user } = response.data;
-      
       localStorage.setItem('token', access_token);
+      localStorage.setItem('user', JSON.stringify(user));
       setToken(access_token);
       setCurrentUser(user);
-      
+      setIsUserFromCache(false);
       return { success: true };
     } catch (error) {
       return { 
@@ -81,8 +91,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setToken(null);
     setCurrentUser(null);
+    setIsUserFromCache(false);
     delete axios.defaults.headers.common['Authorization'];
   };
 
@@ -91,7 +103,8 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
-    loading
+    loading,
+    isUserFromCache
   };
 
   return (

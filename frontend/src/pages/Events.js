@@ -77,7 +77,7 @@ const Events = () => {
       {/* Hero Section */}
       <div style={{
         background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%)',
-        padding: '80px 20px',
+        padding: '0px 20px 40px 20px',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden'
@@ -237,7 +237,7 @@ const Events = () => {
           {!loading && events.length > 0 && (
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+              gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
               gap: '32px',
               marginBottom: '60px'
             }}>
@@ -417,11 +417,11 @@ const Events = () => {
               Proses sederhana untuk bertemu teman baru dan menikmati pengalaman kuliner yang tak terlupakan
             </p>
             
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-              gap: '24px', 
-              marginTop: '32px' 
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: window.innerWidth < 600 ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '24px',
+              marginTop: '32px'
             }}>
               <div style={{
                 padding: '20px',
